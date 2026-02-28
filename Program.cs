@@ -4,9 +4,8 @@
     {
         static void Main(string[] args)
         {
-
-            String username = "Renmar";
-            String password = "Renmar123";
+            for (int i = 0; i < 2; i++)
+            {
 
             Console.WriteLine("Bills Payment");
 
@@ -15,19 +14,30 @@
 
             Console.WriteLine("Enter your Password: ");
             string inputPassword = Console.ReadLine();
-                        
-            for (int i = 0; i < 2; i++)
-            {
-                if (inputUsername == username && inputPassword == password)
+                       
+                if (inputUsername == "Renmar" && inputPassword == "Renmar123")
                 {
-                    Console.WriteLine("Login successful! Welcome, " + username);
+                    Console.WriteLine("Login successful! Welcome, " + inputUsername + " !");
 
-                    Console.WriteLine("Enter an amount: ");
+                    Console.WriteLine("Enter Bank Transact (BDO/BPI): ");
+                    string bank = Console.ReadLine();
+
+                    Console.WriteLine("Enter Payment Amount: ");
                     string inputAmount = Console.ReadLine();
+
+                    Console.WriteLine("Payment Method (Credit/Debit): ");
+                    string paymentMethod = Console.ReadLine();
+
+                    Console.WriteLine("Bill Type (Water/Electricity): ");
+                    string billType = Console.ReadLine();
+
+                    Console.WriteLine(billType + " bill of " + inputAmount + " paid successfully using " + paymentMethod + ". Thank you for your payment!");
+
+                    break;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid username or password. please try again.");
+                    Console.WriteLine("Invalid username or password. Please try again.");
                 }
             }
         }
