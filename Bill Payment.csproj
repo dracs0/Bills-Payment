@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BillPaymentAppService\BillPaymentAppService.csproj" />
+    <ProjectReference Include="..\BillPaymentModels\BillPaymentModels.csproj" />
+  </ItemGroup>
+
 </Project>
