@@ -14,4 +14,13 @@
     <ProjectReference Include="..\BPModels\BPModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update=".gitattributes">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update=".gitignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

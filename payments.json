@@ -1,0 +1,10 @@
+[
+  {
+    "PaymentId": "0eba59bc-d600-41f6-8866-48707416573d",
+    "Username": "renren",
+    "Bank": "landbank",
+    "Amount": "11111",
+    "PaymentMethod": "debit",
+    "BillType": "water"
+  }
+]
