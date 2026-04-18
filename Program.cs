@@ -2,7 +2,6 @@
 using BPDataService;
 using BPModels;
 using System;
-using System.Reflection;
 
 namespace Bill_Payment
 {
@@ -11,55 +10,71 @@ namespace Bill_Payment
         public static void Main(string[] args)
         {
             PaymentService service = new PaymentService();
-            PaymentDataService dataService = new PaymentDataService();
 
-            for (int i = 0; i < 3; i++)
+            while (true)
             {
-                Console.WriteLine("Bills Payment");
+                Console.WriteLine("\nBills Payment System");
+                Console.WriteLine("1. Create Payment");
+                Console.WriteLine("2. View Payments");
+                Console.WriteLine("3. Update Payment");
+                Console.WriteLine("4. Delete Payment");
+                Console.WriteLine("5. Exit");
+                Console.Write("Choose an option: ");
+                string choice = Console.ReadLine();
 
-                Console.Write("Enter your Name: ");
-                string inputUsername = Console.ReadLine();
-
-                Console.Write("Enter your Password: ");
-                string inputPassword = Console.ReadLine();
-
-                if (inputUsername == "Renmar" && inputPassword == "Renmar123")
+                switch (choice)
                 {
-                    Console.WriteLine("Login successful! Welcome, " + inputUsername + "!");
+                    case "1":
+                        Console.Write("Enter Username: ");
+                        string user = Console.ReadLine();
+                        Console.Write("Enter Bank: ");
+                        string bank = Console.ReadLine();
+                        Console.Write("Enter Amount: ");
+                        string amount = Console.ReadLine();
+                        Console.Write("Enter Method (Credit/Debit): ");
+                        string method = Console.ReadLine();
+                        Console.Write("Enter Bill Type (Water/Electricity/Internet): ");
+                        string billType = Console.ReadLine();
 
-                    Console.Write("Enter Bank Transact (BDO/BPI): ");
-                    string bank = Console.ReadLine();
+                        var payment = service.CreatePayment(user, bank, amount, method, billType);
+                        Console.WriteLine("Payment created successfully!");
+                        service.PrintReceipt(payment);
+                        break;
 
-                    Console.Write("Enter Payment Amount: ");
-                    string inputAmount = Console.ReadLine();
+                    case "2":
+                        Console.WriteLine("\n--- Payment History ---");
+                        service.ShowPayments();
+                        break;
 
-                    Console.Write("Payment Method (Credit/Debit): ");
-                    string paymentMethod = Console.ReadLine();
+                    case "3":
+                        Console.Write("Enter Payment ID to update: ");
+                        Guid updateId = Guid.Parse(Console.ReadLine());
+                        var updated = new Payment
+                        {
+                            Username = "UpdatedUser",
+                            Bank = "UpdatedBank",
+                            Amount = "999",
+                            PaymentMethod = "Debit",
+                            BillType = "Internet"
+                        };
+                        service.UpdatePayment(updateId, updated);
+                        Console.WriteLine("Payment updated.");
+                        break;
 
-                    Console.Write("Bill Type (Water/Electricity/Internet): ");
-                    string billType = Console.ReadLine();
+                    case "4":
+                        Console.Write("Enter Payment ID to delete: ");
+                        Guid deleteId = Guid.Parse(Console.ReadLine());
+                        service.DeletePayment(deleteId);
+                        Console.WriteLine("Payment deleted.");
+                        break;
 
-                    // Create payment using service
-                    Models payment = service.CreatePayment(inputUsername, bank, inputAmount, paymentMethod, billType);
+                    case "5":
+                        return;
 
-                    // Save payment in data service
-                    dataService.SavePayment(payment);
-
-                    // Print receipt
-                    service.PrintReceipt(payment);
-
-                    break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("Invalid username or password. Please try again.");
-                }
-            }
-
-            Console.WriteLine("\n--- Payment History ---");
-            foreach (var p in dataService.GetPayments())
-            {
-                Console.WriteLine($"{p.BillType} - {p.Amount} via {p.Bank}");
             }
         }
     }
